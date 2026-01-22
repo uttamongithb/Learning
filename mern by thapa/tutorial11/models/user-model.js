@@ -1,22 +1,39 @@
 import mongoose from 'mongoose';
+import bcrypt, { genSalt } from 'bcrypt';
 const userSchema = new mongoose.Schema({
-    username:{
+    username: {
         type: String
     },
-    email:{
+    email: {
         type: String
     },
-    phone:{
+    phone: {
         type: String
     },
-    password:{
+    password: {
         type: String
     },
-    isAdmin:{
+    isAdmin: {
         type: Boolean
     }
 
 });
+
+userSchema.pre('save', async function (next) {
+    const user = this;
+    if (!user.isModified('password')) {
+        next();
+    }
+
+    try {
+        const saltRound = await bcrypt.genSalt(10);
+        const hash_password = await bcrypt.hash(user.password, saltRound);
+        user.password = hash_password;
+    } catch (error) {
+        console.log('bcrypt error');
+        next(error);
+    }
+})
 
 const User = new mongoose.model('User', userSchema)
 

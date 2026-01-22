@@ -13,18 +13,19 @@ const home = async (req, res) => {
 }
 const register = async (req, res) => {
     try {
-        console.log(req.body);
+        console.log('req body data ',req.body);
         const { username, email, phone, password } = req.body;
         const userExist = await User.findOne({ email });
+        console.log('after findone')
 
         if (userExist) {
             return res.status(400).json({ message: 'email allready exist' });
         }
-        const saltRound = 10;
-        const hash_password = await bcrypt.hash(password, saltRound)
-
-        const userCreated = await User.create({ username, email, phone, password: hash_password})
-        console.log(userCreated)
+        // const saltRound = 10;
+        // const hash_password = await bcrypt.hash(password, saltRound)
+      console.log('jus before user created')
+        const userCreated = await User.create({ username, email, phone, password})
+        console.log('usercreated data',userCreated)
 
         res.status(200).json({ msg: userCreated });
     } catch (error) {
