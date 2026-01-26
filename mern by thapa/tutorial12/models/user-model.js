@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import bcrypt, { genSalt } from 'bcrypt';
+import jwt from 'jsonwebtoken';
 const userSchema = new mongoose.Schema({
     username: {
         type: String
@@ -35,7 +36,11 @@ userSchema.pre('save', async function (next) {
         console.log('bcrypt error');
         next(error);
     }
-})
+});
+
+userSchema.methods.generateToken = async function() {
+    
+}
 
 const User = new mongoose.model('User', userSchema)
 
