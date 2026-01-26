@@ -1,5 +1,6 @@
-let n = require('fs').readFileSync(0, 'utf-8').trim().split(/\s+/);
+let n = require('fs').readFileSync(0, 'utf-8').trim();
 let pt;
+
 
 for (let i = 0; i < n; i++) {
     pt = ''
