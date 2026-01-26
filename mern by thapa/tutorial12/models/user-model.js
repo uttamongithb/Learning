@@ -38,16 +38,18 @@ userSchema.pre('save', async function (next) {
     }
 });
 
-userSchema.methods.generateToken = async function() {
+userSchema.methods.generateToken = async function () {
     try {
         return jwt.sign({
             userid: this._id.toString(),
             email: this.email,
             isAdmin: this.isAdmin
-        }, )
-        
+        },
+            process.env.JWT_SECRET_KEY
+        )
+
     } catch (error) {
-        
+
     }
 }
 

@@ -27,7 +27,7 @@ const register = async (req, res) => {
         const userCreated = await User.create({ username, email, phone, password})
         console.log('usercreated data',userCreated)
 
-        res.status(201).json({ msg: userCreated, token: await userCreated.generateToken() });
+        res.status(201).json({ msg: 'registartion successfull', token: await userCreated.generateToken(), userId: userCreated._id.toString() });
     } catch (error) {
         res.status(500).json('internal server error');
 
