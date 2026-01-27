@@ -38,6 +38,8 @@ userSchema.pre('save', async function (next) {
     }
 });
 
+
+
 userSchema.methods.generateToken = async function () {
     try {
         return jwt.sign({
@@ -49,7 +51,7 @@ userSchema.methods.generateToken = async function () {
         )
 
     } catch (error) {
-
+        console.error(error)
     }
 }
 

@@ -34,4 +34,22 @@ const register = async (req, res) => {
     }
 }
 
-export default { home, register };
+const login = async (req, res) => {
+    const {email, password} = req.body;
+    const userExist = await User.findOne({email});
+    console.log(userExist)
+
+    if(!userExist){
+        res.status(200).json({message: 'User does not exist'})
+    }
+
+    const passwordValid = await bcrypt.compare(password, userExist.password);
+
+    if(passwordValid){
+        res.status(200).json({message: 'User login successful', token: await userExist.generateToken(), userId: userExist._id.toString()});
+    }else{
+        res.status(401).json({message: 'Invalid credentials'});
+    }
+}
+
+export default { home, register, login };
