@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <span>Search Products: <input type="text" id="search" placeholder="Search products"></span>
+    <select id="sort">
+        <option value="">Filter items</option>
+        <option value="low">low -> high</option>
+        <option value="high">high -> low</option>
+    </select>
+    <div id="container"></div>
+
+    <script>
+        const cont = document.querySelector("#container");
+        const srch = document.querySelector('#search')
+        const srt = document.querySelector('#sort')
+        let products = [];
+
+        fetch("https://fakestoreapi.com/products/")
+            .then(res => res.json())
+            .then(data => {
+                products = data;
+                render(data);
+            }
+            );
+
+        function render(data) {
+            cont.innerHTML = data.map(curele => `
+               <h1>${curele.title}</h1>
+               <img src=${curele.image} height='100px'>
+               <p>Price: ${curele.price}</p>
+               `
+            )
+        }
+
+
+        function fltr() {
+            let data = products.filter(curele => curele.title.toLowerCase().includes(srch.value.toLowerCase()));
+            if (srt.value === "low") data.sort((a, b) => a.price - b.price);
+            if (srt.value === "high") data.sort((a, b) => b.price - a.price);
+            render(data);
+        }
+
+
+        srch.addEventListener('input', fltr)
+        srt.addEventListener('change', fltr)
+    </script>
+
+</body>
+
+</html>
