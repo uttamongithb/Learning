@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+<button id="prev">Prev</button>
+<span id="page"></span>
+<button id="next">Next</button>
+
+<span>Search Products: <input type="text" id="search"></span>
+
+<select id="sort">
+  <option>Filter</option>
+  <option value="low">Low to High</option>
+  <option value="high">High to Low</option>
+</select>
+
+<div id="cont"></div>
+
+<script>
+const prev = document.querySelector('#prev');
+const next = document.querySelector('#next');
+const page = document.querySelector('#page');
+const cont = document.querySelector('#cont');
+const srch = document.querySelector('#search');
+const srt  = document.querySelector('#sort');
+
+let products = [];
+let currentPage = 1;
+const itemsPerPage = 5;
+let filterItems = [];
+
+/* ---------- debounce & throttle ---------- */
+const debounce = (fn, d = 400) => {
+  let t;
+  return (...a) => {
+    clearTimeout(t);
+    t = setTimeout(() => fn(...a), d);
+  };
+};
+
+const throttle = (fn, d = 3000) => {
+  let last = 0;
+  return (...a) => {
+    const now = Date.now();
+    if (now - last >= d) {
+      last = now;
+      fn(...a);
+    }
+  };
+};
+/* ---------------------------------------- */
+
+fetch('https://fakestoreapi.com/products/')
+  .then(res => res.json())
+  .then(data => {
+    products = data;
+    render();
+  });
+
+function render() {
+  filterItems = products.filter(p =>
+    p.title.toLowerCase().includes(srch.value.toLowerCase())
+  );
+
+  if (srt.value === 'low')  filterItems.sort((a,b) => a.price - b.price);
+  if (srt.value === 'high') filterItems.sort((a,b) => b.price - a.price);
+
+  const start = (currentPage - 1) * itemsPerPage;
+  const pageItems = filterItems.slice(start, start + itemsPerPage);
+
+  cont.innerHTML = pageItems.map(p => `
+    <h3>${p.title}</h3>
+    <span>Price: ${p.price}</span><br>
+    <img src="${p.image}" height="100">
+  `).join("");
+
+  page.innerText = `Page ${currentPage}`;
+}
+
+/* ---------- events ---------- */
+prev.addEventListener('click', throttle(() => {
+  if (currentPage > 1) {
+    currentPage--;
+    render();
+  }
+}));
+
+next.addEventListener('click', throttle(() => {
+  if (currentPage < Math.ceil(filterItems.length / itemsPerPage)) {
+    currentPage++;
+    render();
+  }
+}));
+
+srch.addEventListener('input', debounce(() => {
+  currentPage = 1;
+  render();
+}));
+
+srt.addEventListener('change', () => {
+  currentPage = 1;
+  render();
+});
+/* ---------------------------- */
+</script>
+
+</body>
+</html>
