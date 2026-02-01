@@ -5,39 +5,126 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
 
     <style>
-        *{
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
         .cont {
             height: 100vh;
             background-image: url("mnop.png");
             display: flex;
             justify-content: center;
             align-items: center;
-
+            background-size: cover;
 
         }
 
-        .cont button{
+        #fill {
             background-color: rgba(48, 37, 37, 0);
             color: white;
             font-weight: 800;
-            height: 64px;
-            width: 160px;
+            height: 50px;
+            width: 256px;
+            border: none;
+            font-size: 24px;
+            background-color: rgb(10, 163, 10);
+            cursor: pointer;
+        }
+
+        form {
+            display: none;
+            flex-direction: column;
+            background-color: rgba(248, 241, 241, 0.7);
+            height: 400px;
+            width: 370px;
+            align-items: center;
+
+
+        }
+
+        form input {
+            margin-bottom: 20px;
+            height: 48px;
+            width: 300px;
+            font-size: 24px;
+            background-color: rgb(190, 188, 188);
+            color: white;
+            border: none;
+            padding-left: 5px;
+
+        }
+
+        input::placeholder {
+            color: white;
+        }
+
+        #cross {
+            margin-top: 10px;
+            margin-left: 330px;
+            margin-bottom: 20px;
+            color: red;
+            cursor: pointer;
+        }
+
+        #submit {
+            background-color: rgb(8, 196, 8);
+            font-size: 18px;
+            font-weight: 600;
+            height: 48px;
+            width: 300px;
+            color: white;
             border: none;
         }
-      
     </style>
 </head>
 
 <body>
     <div class="cont">
-       <button>Fill your form</button>
+        <button id="fill">Fill your form...</button>
+
+        <form id="form">
+            <i class="fa-solid fa-xmark" id="cross"></i>
+
+            <input type="text" id="name" placeholder="Enter your fullname">
+            <input type="text" id="class" placeholder="Enter your class">
+            <input type="text" id="favorite" placeholder="Enter your Favorite subject">
+            <input type="text" id="age" placeholder="Enter your age">
+            <button id="submit">Submit</button>
+
+        </form>
     </div>
+
+    <script>
+        let fill = document.querySelector('#fill');
+        let submit = document.querySelector('#submit');
+        let cross = document.querySelector('#cross');
+        let input = document.querySelectorAll('input')
+
+        fill.addEventListener('click', () => {
+            form.style.display = "flex";
+            fill.style.display = "none"
+        })
+
+        cross.addEventListener('click', () => {
+            form.style.display = 'none';
+            fill.style.display = "inline"
+        })
+
+
+        submit.addEventListener('click', (e) => {
+            e.preventDefault();
+            input.forEach((curele) => {
+                console.log(curele.value)
+            })
+        })
+
+
+    </script>
 </body>
 
 </html>
