@@ -115,15 +115,13 @@
             fill.style.display = "inline"
         })
 
-
         submit.addEventListener('click', (e) => {
             e.preventDefault();
             input.forEach((curele) => {
                 console.log(curele.value)
+                curele.value = '';
             })
         })
-
-
     </script>
 </body>
 
