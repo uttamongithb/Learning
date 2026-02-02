@@ -29,8 +29,8 @@ const register = async (req, res) => {
 
         res.status(201).json({ msg: 'registartion successfull', token: await userCreated.generateToken(), userId: userCreated._id.toString() });
     } catch (error) {
-        res.status(500).json('internal server error');
-
+        //res.status(500).json('internal server error');
+        next(error);
     }
 }
 
@@ -53,7 +53,7 @@ const login = async (req, res) => {
         }
     } catch (error) {
         console.error(error)
-        res.status(500).json({message: 'Internal server error'})
+        res.status(500).json({ message: 'Internal server error' })
     }
 }
 
