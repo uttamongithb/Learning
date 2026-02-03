@@ -5,39 +5,138 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
 
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #cont {
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #vdo {
+            position: absolute;
+            object-fit: cover;
+            height: 100vh;
+            width: 100vw;
+
+            z-index: -1;
+        }
+
+        
+
+        .cntnt input {
+            background-color: rgba(247, 235, 235, 0.6);
+            height: 48px;
+            width: 350px;
+            border: none;
+            outline: none;
+            font-size: 32px;
+            padding-left: 10px;
+        }
+
+        input::placeholder {
+            font-size: 32px;
+
+        }
+
+        #add {
+            height: 48px;
+            width: 80px;
+            font-size: 32px;
+            font-weight: 700;
+            border: 1px solid rgb(164, 243, 230);
+        }
+
+    
+        ul li {
+            height: 32px;
+            margin-top: 10px;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 10px;
+        }
+
+        .actions {
+            height: 100%;
+        }
+
+        .actions button {
+            width: 32px;
+            height: 32px;
+            margin-left: 3px;
+            font-size: 20px;
+            border: none;
+            background-color: rgba(0, 0, 0, 0);
+
+        }
+    </style>
 </head>
 
 <body>
-    <div>
-        <p><i class="fa-solid fa-xmark" id="cross"></i> <input type="text"></p>
-        <p><i class="fa-solid fa-xmark" id="cross"></i> <input type="text"></p>
-        <p><i class="fa-solid fa-xmark" id="cross"></i> <input type="text"></p>
-        <p><i class="fa-solid fa-xmark" id="cross"></i> <input type="text"></p>
-        <p><i class="fa-solid fa-xmark" id="cross"></i> <input type="text"></p>
-        <p><i class="fa-solid fa-xmark" id="cross"></i> <input type="text"></p>
-        <p><i class="fa-solid fa-xmark" id="cross"></i> <input type="text"></p>
-        <p><i class="fa-solid fa-xmark" id="cross"></i> <input type="text"></p>
+    <div id="cont">
+        <video autoplay muted loop playsinline id="vdo" src="video.mp4"></video>
+
+
+
+
+
+        <div class="cntnt">
+            <form action="">
+                <input type="text" required placeholder="Enter a line.....">
+                <button type="submit" id="add">Add</button>
+            </form>
+            <ul id="items">
+
+            </ul>
+        </div>
+
     </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <script>
-let cross = 
+        let form = document.querySelector('form');
+        let input = document.querySelector('input');
+        let items = document.querySelector('#items');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const li = document.createElement('li');
+            li.innerText = input.value;
+            items.append(li)
+
+            const actions = document.createElement('div');
+            actions.setAttribute('class', 'actions');
+
+            const delbtn = document.createElement('button');
+            delbtn.innerText = '❌';
+
+            const clrchng = document.createElement('button');
+            clrchng.innerText = '🎨';
+
+            actions.append(clrchng, delbtn);
+            li.append(actions)
+
+            delbtn.onclick = () => li.remove();
+
+            li.style.backgroundColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
+            li.style.color = '#' + Math.floor(Math.random() * 16777215).toString(16);
+
+            clrchng.onclick = () => {
+                li.style.backgroundColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
+            }
+
+            input.value = '';
+        })
     </script>
 </body>
 
