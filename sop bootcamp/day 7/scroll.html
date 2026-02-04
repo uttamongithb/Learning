@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            height: 200vh;
+        }
+
+        .box {
+            display: flex;
+            width: 150px;
+            height: 150px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="box"></div>
+
+    <script>
+        const box = document.querySelector('.box');
+
+        window.addEventListener('scroll', () => {
+            let scrl = window.scrollY;
+            let totalHeight = document.body.scrollHeight;
+            let viewHeight = window.innerHeight;
+
+            let scrlhight = totalHeight - viewHeight;
+
+            let scrollPercent = Math.round((scrl/scrlhight) * 100);
+            box.innerText = `Scroll: ${scrollPercent}%`;
+
+            box.style.background = '#' + Math.floor(Math.random() * 16777215).toString(16);
+        });
+    </script>
+
+</body>
+
+</html>
