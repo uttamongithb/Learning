@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* .btn {
+            display: none;
+        } */
+    </style>
+</head>
+
+<body>
+    <div>
+        <!-- <input type="text">
+        <button class="btn">Button</button> -->
+
+        <img src="mnop.png" height="100px" width="100px">
+        <button id="btn2"></button>
+    </div>
+
+    <script>
+        // let btn = document.querySelector('.btn');
+        // let input = document.querySelector('input');
+        let btn2 = document.querySelector('#btn2');
+        let imge = document.querySelector('img');
+
+        // input.addEventListener('input', () => {
+        //     if (input.value.length > 0) {
+        //         btn.style.display = 'inline'
+        //     }
+        // })
+
+        btn2.innerText = 'hide';
+
+        btn2.addEventListener('click', () => {
+            if (btn2.innerText == 'hide') {
+                imge.style.display = 'none'
+                btn2.innerText = 'show';
+            }else{
+                 imge.style.display = 'inline'
+                btn2.innerText = 'hide';
+            }
+        })
+
+    </script>
+</body>
+
+</html>
