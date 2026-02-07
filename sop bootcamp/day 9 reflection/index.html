@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .modal {
+            height: 50px;
+            width: 100px;
+            background-color: aqua;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div>
+        <input type="text" id="inp">
+        <button id="sbm">Submit</button>
+        <p id="para"></p>
+
+
+    </div>
+
+
+    <div id="cont"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script>
+        let inp = document.querySelector('#inp');
+        let sbm = document.querySelector('#sbm');
+        let para = document.querySelector('#para');
+        let cont = document.querySelector('#cont')
+
+
+
+        sbm.addEventListener('click', () => {
+            let li = document.createElement('li');
+            let h1 = document.createElement('h1');
+            h1.innerText = inp.value;
+            let btn = document.createElement('button')
+            btn.innerText = 'Open modal';
+
+
+            let yes = document.createElement('button');
+            yes.innerText = 'Yes';
+
+            let no = document.createElement('button');
+            no.innerText = 'No';
+            li.append(h1, btn)
+            cont.append(li);
+
+            let modal = document.createElement('div');
+            modal.classList.add('modal');
+            modal.append(yes, no);
+
+            btn.addEventListener('click', () => {
+                li.append(modal);
+                modal.style.display = 'flex';
+            })
+
+            yes.addEventListener('click', () => {
+                li.remove();
+
+            });
+
+            no.addEventListener('click', () => {
+                modal.style.display = 'none';
+            })
+
+
+
+
+
+
+            inp.value = '';
+        })
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>
