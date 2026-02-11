@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+
+    <style>
+        .task {
+            display: flex;
+            margin-top: 50px;
+            gap: 30px;
+        }
+
+        #pending {
+            border: 1px solid black;
+            width: 40vw;
+            padding: 15px;
+            border-radius: 5px;
+            height: 70vh;
+        }
+
+        #completed {
+            border: 1px solid black;
+            width: 40vw;
+            padding: 15px;
+            border-radius: 5px;
+            height: 70vh;
+        }
+
+        .card {
+            background-color: aqua;
+            display: flex;
+            justify-content: space-between;
+            height: 32px;
+            padding: 2px 5px;
+            align-items: center;
+            border-radius: 5px;
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <input type="text" placeholder="Enter your task.....">
+        <select id="priority">
+            <option value="">Select priority</option>
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+        </select>
+        <button id="add">Add</button>
+
+
+        <span class="total-task">Total Task : 0</span>
+        <span class="pending-task">Pending Task : 0</span>
+        <span class="completed-task"> Completed Task : 0</span>
+
+        <div class="task">
+            <div id="pending">
+                <span>Pending</span>
+
+                <div class="card">
+                    <span class="tsktxt">This is the pending text </span>
+                    <div class="actions">
+                        <button class="edtbtn"><i class="fa-solid fa-pen"></i></button>
+                        <button class="dltbtn"><i class="fa-solid fa-trash"></i></button>
+                        <button class="cmpltdbtn"><i class="fa-solid fa-check"></i></button>
+
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
+
+            <div id="completed">
+                <span>Completed</span>
+
+            </div>
+
+
+
+        </div>
+
+
+
+    </div>
+
+    <script>
+        let input = document.querySelector('input');
+        let priority = document.querySelector('#priority')
+        let addBtn = document.querySelector('#add');
+        let pending = document.querySelector('#pending');
+        let completed = document.querySelector('#completed');
+        let total_task = document.querySelector('.total-task');
+        let pending_task = document.querySelector('.pending-task');
+        let completed_task = document.querySelector('.completed-task');
+
+        let totalTask = 0;
+        let pendingTask = 0;
+        let completedTask = 0;
+
+
+
+
+
+
+        addBtn.addEventListener('click', () => {
+            totalTask++;
+            let card = document.createElement('div');
+            card.setAttribute('class', 'card')
+            let span = document.createElement('span');
+            span.innerText = input.value;
+
+            let inpt = document.createElement('input');
+            inpt.value = span.innerText;
+            inpt.style.display = 'none';
+
+            let savebtn = document.createElement('button');
+            savebtn.innerText = 'Save';
+            savebtn.style.display = 'none';
+
+
+            let span1 = document.createElement('span');
+            span1.innerText = priority.value;
+
+            let actions = document.createElement('div');
+            actions.setAttribute('class', 'actions');
+
+
+
+
+
+
+            let dltbtn = document.createElement('button');
+            dltbtn.setAttribute('class', 'dltbtn');
+            dltbtn.innerHTML = '<i class="fa-solid fa-trash"></i>';
+
+            let edtbtn = document.createElement('button');
+            edtbtn.setAttribute('class', 'edtbtn');
+            edtbtn.innerHTML = '<i class="fa-solid fa-pen"></i>';
+
+
+            let cmpltd_btn = document.createElement('button');
+            cmpltd_btn.setAttribute('class', 'cmpltdbtn');
+            cmpltd_btn.innerHTML = '<i class="fa-solid fa-check"></i>';
+
+
+
+
+
+
+            card.addEventListener('click', (e) => {
+                console.log(e.target.getAttribute('class'));
+
+                if (e.target.getAttribute('class') == 'fa-solid fa-trash') {
+
+                    if (card.parentElement.id == 'completed') {
+                        completedTask--
+                    }
+
+                    card.remove();
+                    totalTask--;
+                    total_task.innerText = `Total Task : ${totalTask} `;
+                    completed_task.innerText = `Completed Task : ${completedTask} `;
+                    pending_task.innerText = `Pending Task : ${totalTask - completedTask} `;
+                }
+
+
+
+
+                if (e.target.getAttribute('class') == 'fa-solid fa-pen') {
+                    span.style.display = 'none';
+                    edtbtn.style.display = 'none';
+                    inpt.style.display = 'inline';
+                    savebtn.style.display = 'inline';
+
+                    savebtn.addEventListener('click', () => {
+                        span.innerText = inpt.value;
+                        span.style.display = 'inline';
+                        edtbtn.style.display = 'inline';
+                        inpt.style.display = 'none';
+                        savebtn.style.display = 'none';
+                    })
+
+
+
+
+                }
+
+
+
+
+                if (e.target.getAttribute('class') == 'fa-solid fa-check') {
+                    completed.append(card);
+                    completedTask++;
+
+                    edtbtn.style.display = 'none';
+                    cmpltd_btn.style.display = 'none';
+
+                    total_task.innerText = `Total Task : ${totalTask} `;
+                    completed_task.innerText = `Completed Task : ${completedTask} `;
+                    pending_task.innerText = `Pending Task : ${totalTask - completedTask} `;
+
+                }
+            });
+
+
+
+
+
+            actions.append(edtbtn, dltbtn, cmpltd_btn)
+            card.append(inpt, savebtn, span, span1, actions)
+            pending.append(card)
+
+            input.value = '';
+            total_task.innerText = `Total Task : ${totalTask} `;
+            completed_task.innerText = `Completed Task : ${completedTask} `;
+            pending_task.innerText = `Pending Task : ${totalTask - completedTask} `;
+        })
+
+
+
+
+    </script>
+
+</body>
+
+</html>
