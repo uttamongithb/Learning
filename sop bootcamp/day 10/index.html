@@ -9,37 +9,285 @@
 
 
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        body>div {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Input and controls styling */
+        input[type="text"] {
+            padding: 12px 20px;
+            font-size: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.95);
+            outline: none;
+            transition: all 0.3s ease;
+            min-width: 300px;
+            margin-right: 15px;
+        }
+
+        input[type="text"]:focus {
+            border-color: #f093fb;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(240, 147, 251, 0.2);
+            transform: translateY(-2px);
+        }
+
+        select {
+            padding: 12px 20px;
+            font-size: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.95);
+            cursor: pointer;
+            outline: none;
+            transition: all 0.3s ease;
+            margin-right: 15px;
+        }
+
+        select:focus {
+            border-color: #f093fb;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(240, 147, 251, 0.2);
+        }
+
+        #add {
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(245, 87, 108, 0.4);
+        }
+
+        #add:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(245, 87, 108, 0.6);
+        }
+
+        #add:active {
+            transform: translateY(0);
+        }
+
+        /* Stats styling */
+        span.total-task,
+        span.pending-task,
+        span.completed-task {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            margin: 25px 10px 0 0;
+            font-weight: 500;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        span.total-task:hover,
+        span.pending-task:hover,
+        span.completed-task:hover {
+            background: rgba(255, 255, 255, 0.35);
+            transform: translateY(-2px);
+        }
+
         .task {
             display: flex;
-            margin-top: 50px;
+            margin-top: 30px;
             gap: 30px;
         }
 
-        #pending {
-            border: 1px solid black;
+        #pending,
+        #completed {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
             width: 40vw;
-            padding: 15px;
-            border-radius: 5px;
+            padding: 25px;
+            border-radius: 20px;
             height: 70vh;
+            overflow-y: auto;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
 
-        #completed {
-            border: 1px solid black;
-            width: 40vw;
-            padding: 15px;
-            border-radius: 5px;
-            height: 70vh;
+        #pending>span,
+        #completed>span {
+            display: block;
+            font-size: 1.4em;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
         }
 
         .card {
-            background-color: aqua;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 100%);
             display: flex;
             justify-content: space-between;
-            height: 32px;
-            padding: 2px 5px;
             align-items: center;
-            border-radius: 5px;
-            margin: 10px;
+            padding: 15px 18px;
+            border-radius: 12px;
+            margin: 12px 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border-left: 4px solid #f093fb;
+            min-height: 50px;
+            height: auto;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        #completed .card {
+            border-left-color: #4ade80;
+            opacity: 0.9;
+        }
+
+        .card .tsktxt,
+        .card>span:first-child {
+            flex: 1;
+            color: #2d3748;
+            font-weight: 500;
+            font-size: 15px;
+            margin-right: 15px;
+        }
+
+        .card input[type="text"] {
+            flex: 1;
+            margin-right: 10px;
+            min-width: auto;
+            padding: 8px 12px;
+            font-size: 14px;
+        }
+
+        /* Action buttons styling */
+        .actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .actions button {
+            width: 36px;
+            height: 36px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .edtbtn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .edtbtn:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .dltbtn {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        .dltbtn:hover {
+            transform: scale(1.1) rotate(-5deg);
+            box-shadow: 0 4px 15px rgba(245, 87, 108, 0.4);
+        }
+
+        .cmpltdbtn {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            color: white;
+        }
+
+        .cmpltdbtn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px rgba(67, 233, 123, 0.4);
+        }
+
+        /* Save button styling when visible */
+        .card button:not(.edtbtn):not(.dltbtn):not(.cmpltdbtn) {
+            padding: 8px 16px;
+            width: auto;
+            height: auto;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 8px;
+            font-weight: 500;
+            margin-right: 10px;
+        }
+
+        /* Custom scrollbar */
+        #pending::-webkit-scrollbar,
+        #completed::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        #pending::-webkit-scrollbar-track,
+        #completed::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        #pending::-webkit-scrollbar-thumb,
+        #completed::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+        }
+
+        #pending::-webkit-scrollbar-thumb:hover,
+        #completed::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .task {
+                flex-direction: column;
+            }
+
+            #pending,
+            #completed {
+                width: 100%;
+            }
+
+            input[type="text"] {
+                min-width: 100%;
+                margin-bottom: 10px;
+            }
+
+            select,
+            #add {
+                width: 100%;
+                margin-bottom: 10px;
+            }
         }
     </style>
 </head>
