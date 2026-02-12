@@ -17,7 +17,8 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: white;
+            color: black;
             min-height: 100vh;
             padding: 40px 20px;
         }
@@ -31,9 +32,9 @@
         input[type="text"] {
             padding: 12px 20px;
             font-size: 16px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
+            border: 2px solid black;
             border-radius: 10px;
-            background: rgba(255, 255, 255, 0.95);
+            background: white;
             outline: none;
             transition: all 0.3s ease;
             min-width: 300px;
@@ -41,18 +42,18 @@
         }
 
         input[type="text"]:focus {
-            border-color: #f093fb;
+            border-color: #333;
             background: white;
-            box-shadow: 0 0 0 3px rgba(240, 147, 251, 0.2);
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
             transform: translateY(-2px);
         }
 
         select {
             padding: 12px 20px;
             font-size: 16px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
+            border: 2px solid black;
             border-radius: 10px;
-            background: rgba(255, 255, 255, 0.95);
+            background: white;
             cursor: pointer;
             outline: none;
             transition: all 0.3s ease;
@@ -60,27 +61,28 @@
         }
 
         select:focus {
-            border-color: #f093fb;
+            border-color: #333;
             background: white;
-            box-shadow: 0 0 0 3px rgba(240, 147, 251, 0.2);
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
         }
 
         #add {
             padding: 12px 30px;
             font-size: 16px;
             font-weight: 600;
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            background: black;
             color: white;
-            border: none;
+            border: 2px solid black;
             border-radius: 10px;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(245, 87, 108, 0.4);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
         #add:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(245, 87, 108, 0.6);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            background: #333;
         }
 
         #add:active {
@@ -92,21 +94,20 @@
         span.pending-task,
         span.completed-task {
             display: inline-block;
-            background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(10px);
-            color: white;
+            background: white;
+            color: black;
             padding: 10px 20px;
             border-radius: 20px;
             margin: 25px 10px 0 0;
             font-weight: 500;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 2px solid black;
             transition: all 0.3s ease;
         }
 
         span.total-task:hover,
         span.pending-task:hover,
         span.completed-task:hover {
-            background: rgba(255, 255, 255, 0.35);
+            background: #f5f5f5;
             transform: translateY(-2px);
         }
 
@@ -119,15 +120,14 @@
         #pending,
         #completed {
             flex: 1;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.25);
+            background: white;
+            border: 2px solid black;
             width: 40vw;
             padding: 25px;
             border-radius: 20px;
             height: 70vh;
             overflow-y: auto;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
         #pending>span,
@@ -142,28 +142,29 @@
         }
 
         .card {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 100%);
+            background: white;
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 15px 18px;
             border-radius: 12px;
             margin: 12px 0;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
-            border-left: 4px solid #f093fb;
+            border: 2px solid black;
+            border-left: 4px solid black;
             min-height: 50px;
             height: auto;
         }
 
         .card:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
 
         #completed .card {
-            border-left-color: #4ade80;
-            opacity: 0.9;
+            border-left-color: black;
+            opacity: 0.7;
         }
 
         .card .tsktxt,
@@ -203,33 +204,39 @@
         }
 
         .edtbtn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: black;
             color: white;
+            border: 2px solid black;
         }
 
         .edtbtn:hover {
             transform: scale(1.1) rotate(5deg);
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            background: #333;
         }
 
         .dltbtn {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            background: black;
             color: white;
+            border: 2px solid black;
         }
 
         .dltbtn:hover {
             transform: scale(1.1) rotate(-5deg);
-            box-shadow: 0 4px 15px rgba(245, 87, 108, 0.4);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            background: #333;
         }
 
         .cmpltdbtn {
-            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            background: black;
             color: white;
+            border: 2px solid black;
         }
 
         .cmpltdbtn:hover {
             transform: scale(1.1);
-            box-shadow: 0 4px 15px rgba(67, 233, 123, 0.4);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            background: #333;
         }
 
         /* Save button styling when visible */
@@ -237,8 +244,9 @@
             padding: 8px 16px;
             width: auto;
             height: auto;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: black;
             color: white;
+            border: 2px solid black;
             border-radius: 8px;
             font-weight: 500;
             margin-right: 10px;
@@ -252,19 +260,19 @@
 
         #pending::-webkit-scrollbar-track,
         #completed::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.1);
+            background: #f5f5f5;
             border-radius: 10px;
         }
 
         #pending::-webkit-scrollbar-thumb,
         #completed::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.3);
+            background: #ccc;
             border-radius: 10px;
         }
 
         #pending::-webkit-scrollbar-thumb:hover,
         #completed::-webkit-scrollbar-thumb:hover {
-            background: rgba(255, 255, 255, 0.5);
+            background: #999;
         }
 
         /* Responsive design */
