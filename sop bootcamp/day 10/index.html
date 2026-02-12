@@ -151,8 +151,6 @@
             margin: 12px 0;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
-            border: 2px solid black;
-            border-left: 4px solid black;
             min-height: 50px;
             height: auto;
         }
@@ -369,6 +367,10 @@
 
 
         addBtn.addEventListener('click', () => {
+            if(input.value.trim() == "" || priority.value.trim() == ""){
+                return
+            }
+
             totalTask++;
             let card = document.createElement('div');
             card.setAttribute('class', 'card')
@@ -391,6 +393,13 @@
             actions.setAttribute('class', 'actions');
 
 
+            if(priority.value == 'low'){
+                card.style.border = '4px solid yellow';
+            }else if(priority.value == 'medium'){
+                card.style.border = '4px solid green';
+            }else{
+                card.style.border = '4px solid red';
+            }
 
 
 
