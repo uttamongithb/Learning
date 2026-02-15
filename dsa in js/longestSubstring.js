@@ -14,7 +14,9 @@ for(let i=0; i<s.length; i++){
             mx++;
         }
     }else{
-        str = '';
+        while(str.includes(s[i])){
+            
+        }
     }
 }
 
