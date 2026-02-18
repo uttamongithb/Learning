@@ -1,72 +1,65 @@
-const readline = require("readline");
+import express from 'express';
 
-// simple database (JS object)
+const app = express();
+app.use(express.json());
+
 let users = [
-  {
-    name: "Uttam",
-    gmail: "uttam@gmail.com",
-    password: "12345",
-    textcontent: "hello"
-  }
+    {
+        name: 'uttam',
+        email: 'uttam@gmail.com',
+        password: '123456',
+        textcontent: 'Who are you'
+
+    }
 ];
 
-// terminal input
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
+app.get('/', (req, res) => {
+    res.status(200).send({ users });
+    console.log(users);
 });
 
-// LOGIN
-function login() {
-  rl.question("Enter Gmail: ", (email) => {
-    rl.question("Enter Password: ", (pass) => {
+app.post('/', (req, res) => {
+    console.log(req.body)
+    const { name, email, password, textcontent } = req.body;
 
-      const user = users.find(
-        u => u.gmail === email && u.password === pass
-      );
+    users.push({ name, email, password, textcontent });
 
-      if (!user) {
-        console.log("❌ Login Failed");
-        rl.close();
-        return;
-      }
+    res.status(200).send({ message: 'Users added', users })
 
-      console.log("✅ Login Successful");
-      menu(user);
+});
 
-    });
-  });
-}
 
-// MENU
-function menu(user) {
-  console.log("\n1. Read");
-  console.log("2. Update");
-  console.log("3. Delete");
+app.put('/', (req, res) => {
+    const { email, name, password, textcontent } = req.body;
 
-  rl.question("Choose option: ", (choice) => {
+    const user = users.find(u => u.email === email);
 
-    if (choice === "1") {
-      console.log(user);
-      rl.close();
+    if (!user) {
+        return res.status(404).json({ message: 'User not found' })
     }
 
-    else if (choice === "2") {
-      rl.question("New Name: ", (newName) => {
-        user.name = newName;
-        console.log("✅ Updated:", user);
-        rl.close();
-      });
-    }
+    user.name = name || user.name;
+    user.password = password || user.password;
+    user.textcontent = textcontent || user.textcontent;
 
-    else if (choice === "3") {
-      users = users.filter(u => u.gmail !== user.gmail);
-      console.log("✅ User Deleted");
-      rl.close();
-    }
 
-  });
-}
+    res.status(200).send({ message: "Updated", user });
+})
 
-// start program
-login();
+
+
+app.delete('/', (req, res) => {
+    const { email } = req.body;
+
+    users = users.filter(u => u.email !== email);
+
+    res.status(200).send({ message: 'users deleted successfully', users })
+
+    console.log(email);
+})
+
+
+
+app.listen(3000, () => {
+    console.log('server is running on port 3000');
+})

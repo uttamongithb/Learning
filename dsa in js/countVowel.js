@@ -1,3 +1,3 @@
 let s = 'msndoahodhhweidg';
 
-console.log
+console.log(s.length)
