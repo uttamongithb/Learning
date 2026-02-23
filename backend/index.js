@@ -50,6 +50,7 @@ app.put('/', (req, res) => {
 
 app.delete('/', (req, res) => {
     const { email } = req.body;
+    
 
     users = users.filter(u => u.email !== email);
 
