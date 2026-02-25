@@ -1,21 +1,16 @@
-var t1 = gsap.timeline();
+document.querySelectorAll('.reveal')
+    .forEach(function (elem) {
+        let spanParent = document.createElement('span');
+        let spanChild = document.createElement('span');
+        spanParent.classList.add('parent');
+        spanChild.classList.add('child');
 
-t1.to('#fs', {
-    height: 0,
-    duration: 2,
-    ease: Expo.easeInOut
-})
-    .to('#elem', {
-        height: '100%',
-        duration: 2,
-        delay: -2,
-        ease: Expo.easeInOut
 
-    })
-     .to('#white', {
-        height: '100%',
-        duration: 2,
-        delay: -1.8,
-        ease: Expo.easeInOut
+        spanChild.textContent = elem.textContent;
+
+        spanParent.appendChild(spanChild);
+
+        elem.innerHTML = '';
+        elem.appendChild(spanParent)
 
     })
