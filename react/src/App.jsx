@@ -4,23 +4,33 @@ import Home from './pages/Home'
 import About from './pages/About'
 import Contact from './pages/Contact'
 import Navbar from './components/Navbar'
-
+import  { useState, useEffect } from 'react'
 
 const App = () => {
-  return (
-    <>
-   <Router>
-    <Navbar/>
-    <Routes>
-      <Route path="/" element={<Home/>} />
-      <Route path='/about' element={<About/>} />
-      <Route path='/contact' element={<Contact/>} />
-    </Routes>
-   </Router>
-   
-    
-    </>
-  )
+  // return (
+  //   <>
+  //  <Router>
+  //   <Navbar/>
+  //   <Routes>
+  //     <Route path="/" element={<Home/>} />
+  //     <Route path='/about' element={<About/>} />
+  //     <Route path='/contact' element={<Contact/>} />
+  //   </Routes>
+  //  </Router>
+
+
+  //   </>
+  // )
+
+
+
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    console.log("Effect running");
+  }, []);
+
+  return <button onClick={() => setCount(count + 1)}>Click</button>;
 }
 
 export default App

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="cont">
+
+    </div>
+
+
+
+
+    <script>
+
+        let cont = document.querySelector('.cont');
+
+        fetch('https://fakestoreapi.com/products')
+            .then(res => res.json())
+            .then(data => {
+                render(data);
+
+                
+            });
+
+
+        function render(data) {
+
+           return cont.innerHTML = data.map(curelem => `
+           <h1>${curelem.title}</h1>
+           `)
+
+        }
+
+
+
+    </script>
+
+</body>
+
+</html>
