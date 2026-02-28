@@ -13,16 +13,20 @@ const Feed = () => {
         <section className='feed-section'>
             <h1>Feed</h1>
 
-            {posts.length > 0 ? (
+           {
+            posts.length > 0 ? (
                 posts.map(post => (
-                    <div key={post.id} className='post'>
-                        <img src={post.image} alt={post.caption} className='post-image' />
+                    <div key={post.id} className='post-card'>
+                        <img src={post.image} alt={`Post ${post.id}`} className='post-image' />
                         <p className='post-caption'>{post.caption}</p>
                     </div>
                 ))
             ) : (
-                <p>No posts to display</p>
-            )}
+                <p>No posts available.</p>
+            )
+           }
+
+           
 
         </section>
     )
