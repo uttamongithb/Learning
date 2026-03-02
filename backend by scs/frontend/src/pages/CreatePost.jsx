@@ -1,7 +1,11 @@
 import React from 'react'
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 const CreatePost = () => {
+
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -11,6 +15,8 @@ const CreatePost = () => {
 
     axios.post('http://localhost:3000/create-post', formData)
       .then((res) => {
+
+        navigate('/feed')
         console.log(res)
       })
       .catch((err) => {
@@ -18,6 +24,9 @@ const CreatePost = () => {
         alert("error creating post")
       })
   }
+
+
+
 
 
 
