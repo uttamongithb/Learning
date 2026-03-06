@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Site --- Project</title>
+    <script src="js/client.js" defer></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="nav-logo">
+        <img src="chat.svg" alt="chat-logo" class="logo">
+        <p class="logo-para">Chatting Site : Make new friends and chat with them. </p>
+        <button id="logout-button" class="logout-button">Logout</button>
+    </nav>
+
+    <div class="chat-container">
+        <aside class="user-list" id="user-list">
+            <!-- Users will be populated by JavaScript -->
+        </aside>
+
+        <section class="chat-area">
+            <div id="chat-header">
+                <p id="chat-with">Select a user to start chatting</p>
+                <span id="chat-status"></span>
+            </div>
+            <div id="chat-content">
+                <!-- Chat messages will appear here -->
+            </div>
+        
+            <!-- Message input area and Send button at the bottom -->
+            <div class="chat-input-container" id="chat-input-container" style="display: none;">
+                <input type="text" id="message-input" placeholder="Type a message..." disabled>
+                <button id="send-button" type="submit" disabled>Send</button>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
