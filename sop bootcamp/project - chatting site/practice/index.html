@@ -1,117 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-<title>Chat</title>
-
-<style>
-body{font-family:Arial;display:flex;height:100vh;margin:0}
-#users{width:200px;border-right:1px solid #ccc;padding:10px}
-#chat{flex:1;padding:10px}
-#messages{height:75%;overflow:auto;border:1px solid #ccc;padding:5px;margin-bottom:10px}
-#msg{width:75%}
-.user{cursor:pointer;padding:5px}
-.user:hover{background:#eee}
-</style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store</title>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<div id="users"></div>
+    <header>
+        <h1>Store</h1>
 
-<div id="chat">
-<h3 id="chatWith">Select a user</h3>
+        <div class="controls">
 
-<div id="messages"></div>
+            <input type="text" id="search" placeholder="Search products...">
 
-<input id="msg" disabled placeholder="select user first">
-<button onclick="send()" disabled id="sendBtn">Send</button>
-</div>
+            <select id="sort">
+                <option value="">Sort</option>
+                <option value="low">Price Low → High</option>
+                <option value="high">Price High → Low</option>
+            </select>
 
-<script src="/socket.io/socket.io.js"></script>
+            <button id="cartBtn">
+                🛒 Cart <span id="count">0</span>
+            </button>
 
-<script>
+        </div>
+    </header>
 
-const socket=io()
+    <main>
 
-let myName=prompt("Enter your name")
-let currentUser=null
-let chats={}
+        <div id="products"></div>
 
-socket.emit("join",myName)
+    </main>
 
-socket.on("users",(users)=>{
-
-let list=document.getElementById("users")
-list.innerHTML="<h4>Users</h4>"
-
-for(let id in users){
-
-if(users[id]!=myName){
-
-let div=document.createElement("div")
-div.className="user"
-div.innerText=users[id]
-
-div.onclick=()=>{
-currentUser=users[id]
-document.getElementById("chatWith").innerText="Chat with "+currentUser
-document.getElementById("msg").disabled=false
-document.getElementById("sendBtn").disabled=false
-renderChat()
-}
-
-list.appendChild(div)
-
-}
-
-}
-
-})
-
-function send(){
-
-let input=document.getElementById("msg")
-
-if(!currentUser)return
-
-let text=input.value
-
-socket.emit("msg",{to:currentUser,text})
-
-if(!chats[currentUser])chats[currentUser]=[]
-chats[currentUser].push("Me: "+text)
-
-renderChat()
-
-input.value=""
-
-}
-
-socket.on("msg",(data)=>{
-
-if(!chats[data.from])chats[data.from]=[]
-chats[data.from].push(data.from+": "+data.text)
-
-if(currentUser===data.from)renderChat()
-
-})
-
-function renderChat(){
-
-let box=document.getElementById("messages")
-box.innerHTML=""
-
-let arr=chats[currentUser]||[]
-
-arr.forEach(m=>{
-let d=document.createElement("div")
-d.innerText=m
-box.appendChild(d)
-})
-
-}
-
-</script>
+    <script src="script.js"></script>
 
 </body>
+
 </html>
